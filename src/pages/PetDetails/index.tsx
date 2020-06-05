@@ -2,35 +2,29 @@ import React, {useEffect, useState} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import api from '../../services/api';
 
-interface PetsArray {
+interface PropsId {
   id: string;
-  name: string;
-  size: string;
-  gender: string;
-  photo_url: string;
 }
 
-type PetDetailProps = RouteComponentProps<PetsArray>;
+type DetailProps = RouteComponentProps<PropsId>;
 
-const PetDetails: React.FC<PetDetailProps> = ({ match }) => {
-  const [petDetais, setPetDetails] = useState<PetsArray[]>([]);
+const PetDetails: React.FC<DetailProps> = ({ match }) => {
+  const [petDetail, setPetDetail] = useState();
 
   useEffect(() => {
-    api.get<PetsArray>(`pets/${match.params.id}`).then(response => {
-      setPetDetails([response.data])
-    })
+    api.get(`pets/${match.params.id}`).then(response => {
+      
+      const data = response.data;
+
+      setPetDetail(data[0]);
+
+      console.log(petDetail)
+    });
   },[]);
 
-  return (
-    <div>
-      {petDetais.map(pet => (
-        <div key={pet.id}> 
-          <h1>{pet.name}</h1>
-          <img src="https://www.hypeness.com.br/wp-content/uploads/2019/09/Vira-lata_Caramelo_3.jpg" alt="caramelo" />
-        </div>
-      ))}
-    </div>
-  )
+ return (
+  <h1>Details</h1>
+ )
 };
 
 export default withRouter(PetDetails);

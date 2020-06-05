@@ -6,6 +6,8 @@ import { LeafletMouseEvent } from 'leaflet';
 import axios from 'axios';
 import api from '../../services/api';
 
+import Dropzone from '../../components/Dropzone';
+
 import logo from '../../assets/logo.png';
 import './styles.css'
 
@@ -33,6 +35,7 @@ const RegisterPet = () => {
   const [selectedCity, setSelectedCity] = useState('0');
 
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+  const [selectedFile, setSelectedFile] = useState<File>();
 
   const history = useHistory();
 
@@ -98,15 +101,19 @@ const RegisterPet = () => {
     const city = selectedCity;
     const [latitude, longitude] = selectedPosition;
 
-    const data = {
-      name,
-      size,
-      gender,
-      uf,
-      city,
-      latitude,
-      longitude
-    };
+    const data = new FormData();
+
+    data.append('name', name);
+    data.append('size', size);
+    data.append('gender', gender);
+    data.append('uf', uf);
+    data.append('city', city);
+    data.append('latitude', String(latitude));
+    data.append('longitude', String(longitude));
+    
+    if (selectedFile) {
+      data.append('photo', selectedFile);
+    }
 
     await api.post('pets', data);
 
@@ -128,6 +135,8 @@ const RegisterPet = () => {
 
       <form onSubmit={handleSubmit}>
         <h1>Cadastro do Pet</h1>
+
+        <Dropzone onFileUploaded={setSelectedFile} />
 
         <fieldset>
           <div className="field">

@@ -136,7 +136,7 @@ const AdoptPet = () => {
           <Link to={`/pets/${pet.id}`}>
             <li key={pet.id}>
             <div className="pet-card">
-              <img src="https://www.hypeness.com.br/wp-content/uploads/2019/09/Vira-lata_Caramelo_3.jpg" alt="caramelo" />
+              <img src={pet.photo_url} alt="adopet" />
               <h4><b>{pet.name}</b></h4>
               <p>{`${pet.gender} de porte ${pet.size}`}</p>
             </div>
