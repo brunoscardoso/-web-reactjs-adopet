@@ -24,7 +24,9 @@ const RegisterPet = () => {
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
 
   const [name, setName] = useState('');
-  const [sizes, setSizes] = useState<string[]>(['Pequeno', 'Médio', 'Grande']);
+  const [sizes] = useState<string[]>(['Pequeno', 'Médio', 'Grande']);
+  const [genders] = useState<string[]>(['Macho', 'Fêmea', 'Não sei']);
+  const [gender, setGender] = useState('');
   const [size, setSize] = useState('');
 
   const [selectedUf, setSelectedUf] = useState('0');
@@ -85,6 +87,10 @@ const RegisterPet = () => {
     setSize(event.target.value);
   }
 
+  function handleGenderChange(event: ChangeEvent<HTMLSelectElement>) {
+    setGender(event.target.value);
+  }
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
@@ -95,6 +101,7 @@ const RegisterPet = () => {
     const data = {
       name,
       size,
+      gender,
       uf,
       city,
       latitude,
@@ -111,24 +118,21 @@ const RegisterPet = () => {
   return (
     <div id="page-register-pet">
       <header>
-        <img src={logo} alt="adopet" />
-
         <Link to="/">
           <FiArrowLeft />
           Voltar
         </Link>
+
+        <img src={logo} alt="adopet" />
       </header>
 
       <form onSubmit={handleSubmit}>
         <h1>Cadastro do Pet</h1>
 
         <fieldset>
-          <legend>
-            <h2>Dados</h2>
-          </legend>
           <div className="field">
             <label htmlFor="name">
-              Nome ( psiu, batisa ele ai ;) )
+              Nome ( psiu, batisa ele ai )
             </label>
             <input 
               type="text"
@@ -139,28 +143,42 @@ const RegisterPet = () => {
             />
           </div>
 
-          <div className="field">
-            <label htmlFor="size">Qual porte dele?</label>
-              <select
-              name="size"
-              id="size"
-              value={size}
-              onChange={handleSizeChange}
-              > 
-                <option value='0'>Selecione o porte</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
+          <div className="field-group">
+            <div className="field">
+              <label htmlFor="size">Qual porte dele?</label>
+                <select
+                name="size"
+                id="size"
+                value={size}
+                onChange={handleSizeChange}
+                > 
+                  <option value='0'>Selecione o porte</option>
+                  {sizes.map(size => (
+                    <option key={size} value={size}>{size}</option>
+                  ))}
+                </select>
+            </div>
+            <div className="field">
+              <label htmlFor="gender">Qual o sexo?</label>
+                <select
+                name="gender"
+                id="gender"
+                value={gender}
+                onChange={handleGenderChange}
+                > 
+                  <option value='0'>Selecione o sexo</option>
+                  {genders.map(gender => (
+                    <option key={gender} value={gender}>{gender}</option>
+                  ))}
+                </select>
+            </div>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>
-            <h2>Endereco</h2>
-            <span>Selecione a região no mapa</span>
+            <h2>Endereço</h2>
           </legend>
-
           <div className="field-group">
               <div className="field">
                 <label htmlFor="uf">Estado (UF)</label>
@@ -198,8 +216,9 @@ const RegisterPet = () => {
                   ))}
                 </select>
               </div>
-            </div> 
+            </div>
 
+            <span>Selecione a região no mapa</span>
           <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
             <TileLayer
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -207,7 +226,6 @@ const RegisterPet = () => {
             />
             <Marker position={selectedPosition}/>
           </Map>
-
         </fieldset>
 
         <button type="submit">

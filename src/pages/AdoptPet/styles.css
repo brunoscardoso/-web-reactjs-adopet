@@ -1,0 +1,144 @@
+#page-adopt-pet {
+  width: 100%;
+  max-width: 730px;
+
+  margin: 0 auto;
+}
+
+#page-adopt-pet header {
+  margin-top: 48px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#page-adopt-pet header a {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-adopt-pet header a svg {
+  margin-right: 16px;
+  color: var(--primary-color);
+}
+
+#page-adopt-pet form {
+  margin: 40px auto;
+  padding: 44px;
+  max-width: 730px;
+  background: #FFF;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#page-adopt-pet form fieldset {
+  min-inline-size: auto;
+  border: 0;
+}
+
+#page-adopt-pet form .field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+}
+
+#page-adopt-pet .field-group {
+  flex: 1;
+  display: flex;
+  margin-top: 8px;
+}
+
+#page-adopt-pet .field .uf {
+  width: 80px;
+  height: 45px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #F0F0F5;
+  border-radius: 8px;
+  border: 0;
+  padding: 16px 24px;
+  font-size: 14px;
+  color: #6C6C80;
+  margin-left: 8px;
+}
+
+#page-adopt-pet .field .city {
+  width: 200px;
+  height: 45px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #F0F0F5;
+  border-radius: 8px;
+  border: 0;
+  padding: 16px 24px;
+  font-size: 14px;
+  color: #6C6C80;
+  margin-left: 8px;
+  margin-right: 25px;
+}
+
+#page-adopt-pet form button {
+  width: 200px;
+  height: 50px;
+  background: var(--primary-color);
+  border-radius: 8px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 16px;
+  border: 0;
+  align-self: flex-start;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+#page-adopt-pet form button span {
+  margin-right: 8px;
+}
+
+#page-adopt-pet form button:hover {
+  background: #2FB86E;
+}
+
+#page-adopt-pet .pet-ul {
+  list-style-type: none;
+}
+
+#page-adopt-pet .pet-card {
+  float: left;
+  width: 174.5px;
+  height: 230px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  margin: 0 8px 0 0px;
+}
+
+#page-adopt-pet .pet-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+#page-adopt-pet .pet-card img {
+  width: 174.5px;
+  height: 180px;
+  border-radius: 5px 5px 0 0;
+}
+
+#page-adopt-pet .pet-card h4 {
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+#page-adopt-pet .pet-card p {
+  font-size: 14px;
+  margin-left: 8px;
+}
