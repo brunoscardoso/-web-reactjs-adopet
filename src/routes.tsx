@@ -4,7 +4,8 @@ import { Route, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import AdoptPet from './pages/AdoptPet';
 import RegisterPet from './pages/RegisterPet';
-import PetDetails from './pages/PetDetails';
+import DetailsPet from './pages/DetailsPet';
+import GiftPet from './pages/GiftPet';
 
 const Routes = () => {
   return (
@@ -12,7 +13,8 @@ const Routes = () => {
       <Route component={Home} path="/" exact/>
       <Route component={AdoptPet} path="/adopt-pet" />
       <Route component={RegisterPet} path="/register-pet" />
-      <Route component={PetDetails} path="/pets/:id" />
+      <Route component={DetailsPet} path="/pets/:id" />
+      <Route component={GiftPet} path="/thankyou/:id" />
     </BrowserRouter>
   )
 }

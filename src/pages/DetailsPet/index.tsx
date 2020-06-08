@@ -28,7 +28,7 @@ interface PetObject {
 
 type DetailProps = RouteComponentProps<PropsId>;
 
-const PetDetails: React.FC<DetailProps> = ({ match }) => {
+const DetailsPet: React.FC<DetailProps> = ({ match }) => {
   const [date, setDate] = useState('');
   const [link, setLink] = useState('');
   const [petDetails, setPetDetails] = useState<PetObject>
@@ -43,7 +43,6 @@ const PetDetails: React.FC<DetailProps> = ({ match }) => {
     longitude: 0,
     adopted: false,
   });
-
 
   const history = useHistory();
 
@@ -61,8 +60,8 @@ const PetDetails: React.FC<DetailProps> = ({ match }) => {
   },[match.params.id]);
 
   async function handleAdopt() {
-    await api.put(`pets/${petDetails.id}`);
-    history.push('/thankyou');
+    await api.put(`thankyou/${petDetails.id}`);
+    history.push(`/thankyou/${petDetails.id}`);
   }
 
   function handleBack() {
@@ -121,4 +120,4 @@ const PetDetails: React.FC<DetailProps> = ({ match }) => {
   );
 };
 
-export default withRouter(PetDetails);
+export default withRouter(DetailsPet);

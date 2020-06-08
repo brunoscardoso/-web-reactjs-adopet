@@ -1,0 +1,52 @@
+#page-gift-pet {
+  width: 100%;
+  max-width: 730px;
+
+  margin: 0 auto;
+}
+
+#page-gift-pet header {
+  margin-top: 48px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#page-gift-pet header a {
+  color: var(--title-color);
+  font-weight: bold;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+#page-gift-pet header a svg {
+  margin-right: 16px;
+  color: var(--primary-color);
+}
+
+#page-gift-pet div {
+  margin: 40px auto;
+  padding: 44px;
+  max-width: 730px;
+  background: #FFF;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#page-gift-pet div h1 {
+  margin-bottom: 16px;
+}
+
+#page-gift-pet div h3 {
+  color: #000
+}
+
+#page-gift-pet div img {
+  width: 290px;
+  height: 110px;
+}
