@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import { RouteComponentProps, withRouter, useHistory } from 'react-router';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
+import pt from 'date-fns/locale/pt';
+import { format, parseISO } from 'date-fns';
 import api from '../../services/api';
 
 import logo from '../../assets/logo.png';
@@ -27,6 +29,8 @@ interface PetObject {
 type DetailProps = RouteComponentProps<PropsId>;
 
 const PetDetails: React.FC<DetailProps> = ({ match }) => {
+  const [date, setDate] = useState('');
+  const [link, setLink] = useState('');
   const [petDetails, setPetDetails] = useState<PetObject>
   ({
     id: 0,
@@ -40,15 +44,25 @@ const PetDetails: React.FC<DetailProps> = ({ match }) => {
     adopted: false,
   });
 
+
   const history = useHistory();
 
   useEffect(() => {
     api.get(`pets/${match.params.id}`).then(response => {
+      const { created_at } = response.data[0];
+      const dateParsedISO = parseISO(created_at);
+      const dateFormated =  () => format(dateParsedISO, "d 'de' MMMM 'por volta das' H:m", { locale: pt });
+      
       const data = response.data[0];
       setPetDetails(data);
+      setDate(dateFormated);
+      setLink(`http://localhost:3000/pets/${response.data[0].id}`)
     })
   },[match.params.id]);
 
+  function handleAdopt() {
+    history.push('/thankyou');
+  }
 
   function handleBack() {
     history.push('/');
@@ -80,7 +94,20 @@ const PetDetails: React.FC<DetailProps> = ({ match }) => {
                   <Marker position={[petDetails.latitude, petDetails.longitude]} />
                 </Map>
               </div>
-              <span>{`Eu sou ${petDetails.gender} de porte ${petDetails.size}, eu fui visto data tal e horário tal aqui nesse região, vem me procurar? Estou com fome e ansioso pra te conhecer!`}</span>    
+              <span>{`Eu sou ${petDetails.gender} de porte ${petDetails.size}, fui visto pela última vez aqui nessa região dia ${date} no horário de Brasília, sim, eu sou muito inteligente e entendo de fuso horário!`}</span>
+              <b>Vem me procurar? Estou com fome e ansioso pra te conhecer!</b>
+              <div className="div-buttons">
+                <Link className="adopt-button" to={`#`} onClick={() => {if(window.confirm('Você realmentou adotou? Se você não adotou, ele perderá a chance de ser adotado por outra familía')){ handleAdopt()};}}>
+                  <span className="span-button">
+                    </span>
+                    <strong>Eu adotei</strong>
+                </Link>
+                <Link className="share-button" to={`#`} onClick={() => {if(window.confirm('Link do Pet copiado, agora é só colar em qualquer rede social, obrigado!')){ navigator.clipboard.writeText(link)};}}>
+                  <span className="span-button">
+                    </span>
+                    <strong>Compartilhar</strong>
+                </Link>
+              </div>
             </div>
         </div>
         :

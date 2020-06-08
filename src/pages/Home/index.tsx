@@ -1,5 +1,5 @@
 import React from 'react';
-import { IoIosHeart } from 'react-icons/io'
+import { IoIosHeart } from 'react-icons/io';
 import { FaDog } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 
@@ -16,8 +16,8 @@ const Home = () => {
         </header>
 
         <main>
-          <h1>Quer adotar um Pet ou cadastrar um novo para adocão?</h1>
-          <p>Ajudamos os dogs caramelos a encontrarem um novo lar</p>
+          <h1>Você quer adotar ou cadastrar um novo Pet?</h1>
+          <p>Nós ajudamos a dar um novo lar <br/> para os caramelos!</p>
 
           <Link to="/adopt-pet" id="button-adoption">
             <span>
