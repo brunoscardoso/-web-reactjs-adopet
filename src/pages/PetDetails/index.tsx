@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter, useHistory } from 'react-router';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -60,7 +60,8 @@ const PetDetails: React.FC<DetailProps> = ({ match }) => {
     })
   },[match.params.id]);
 
-  function handleAdopt() {
+  async function handleAdopt() {
+    await api.put(`pets/${petDetails.id}`);
     history.push('/thankyou');
   }
 
