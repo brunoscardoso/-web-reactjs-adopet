@@ -129,6 +129,7 @@ const AdoptPet = () => {
             </div>
         </fieldset>
       </form>
+      
 
     <ul className="pet-ul">
       {
