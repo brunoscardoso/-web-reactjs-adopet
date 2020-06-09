@@ -4,9 +4,10 @@ import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import crypto from 'crypto';
 import api from '../../services/api';
+import QRCode from 'qrcode.react';
 
 import logo from '../../assets/logo.png';
-import homeopatas from '../../assets/logo-homeopatas.png';
+import homeopatas from '../../assets/voucher-homeopatas.png';
 
 import './styles.css';
 
@@ -36,34 +37,38 @@ const GiftPet: React.FC<DetailProps> = ({ match }) => {
       const data = response.data[0];
       setPetDetails(data);
 
-      const { name } = response.data[0];
-
       const hash = crypto.randomBytes(2).toString('hex');
-      const petName = `${name}-${hash}`;
+      const petName = `${hash}`;
 
       setGift(petName);
     });
 
   }, [match.params.id])
 
-  return (
+  return (    
     <div id="page-gift-pet">
       <header>
-        <Link to="/">
-            <FiArrowLeft />
-            Voltar
-        </Link>
+      <Link to="/">
+        <FiArrowLeft />
+        Voltar
+      </Link>
 
-        <img src={logo} alt="adopet" />
+      <img src={logo} alt="adopet" />
       </header>
 
-      <div>
+      <div className="page-details">
         <h1>Parabéns!</h1>
-
-        <h3>{`Você ganhou a primeira consulta e um banho do(a) ${petDetails.name} de uma Clínica Veterinária que está apoiando a sua atitude!`}</h3>
-        
-        <img src={homeopatas} alt="homeopatas" />
-        <h1>{`Código: ${gift}`}</h1>
+        <h3>{`Você ganhou a primeira consulta e um banho para o(a) ${petDetails.name} de uma Clínica Veterinária que está apoiando a sua atitude!`}</h3>
+        <div className="voucher">
+          <div className="sidebar">
+            <img src={homeopatas} alt="adopet" />
+          </div>
+          <div className="details">
+            <h1>{petDetails.name}</h1>
+            <h1>{gift}</h1>
+          </div>
+          <QRCode value={gift} />
+        </div>
         <span>Para receber essa consulta gratuíta você só precisa bater um print ou uma foto desse cupom e levar até a Clínica Veterinária Homeopatas em Navegantes - SC <br /><br/> Seria muito legal se você batesse uma foto com o seu novo amigo marcando @clinicavethomeopatas para incentivarmos outras pessoas!</span>
       </div>
     </div>
