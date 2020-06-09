@@ -60,7 +60,6 @@ const DetailsPet: React.FC<DetailProps> = ({ match }) => {
   },[match.params.id]);
 
   async function handleAdopt() {
-    await api.put(`thankyou/${petDetails.id}`);
     history.push(`/thankyou/${petDetails.id}`);
   }
 
