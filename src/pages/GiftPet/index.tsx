@@ -60,7 +60,7 @@ const GiftPet: React.FC<DetailProps> = ({ match }) => {
       <div>
         <h1>Parabéns!</h1>
 
-        <h3>{`Você ganhou a primeira consulta do(a) ${petDetails.name} de uma Clínica Veterinária que está apoiando a sua atitude!`}</h3>
+        <h3>{`Você ganhou a primeira consulta e um banho do(a) ${petDetails.name} de uma Clínica Veterinária que está apoiando a sua atitude!`}</h3>
         
         <img src={homeopatas} alt="homeopatas" />
         <h1>{`Código: ${gift}`}</h1>
