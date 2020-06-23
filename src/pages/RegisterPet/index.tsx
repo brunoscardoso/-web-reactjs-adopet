@@ -9,7 +9,7 @@ import api from '../../services/api';
 import Dropzone from '../../components/Dropzone';
 
 import logo from '../../assets/logo.png';
-import './styles.css'
+import './styles.css';
 
 interface IBGEUFResponse {
   sigla: string;
@@ -19,11 +19,14 @@ interface IBGECityResponse {
   nome: string;
 }
 
-const RegisterPet = () => {
+const RegisterPet: React.FC = () => {
   const [ufs, setUfs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
 
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
 
   const [name, setName] = useState('');
   const [sizes] = useState<string[]>(['Pequeno', 'Médio', 'Grande']);
@@ -34,23 +37,30 @@ const RegisterPet = () => {
   const [selectedUf, setSelectedUf] = useState('0');
   const [selectedCity, setSelectedCity] = useState('0');
 
-  const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+  const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
   const [selectedFile, setSelectedFile] = useState<File>();
 
   const history = useHistory();
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       setInitialPosition([latitude, longitude]);
-    })
-  }, [])
-  
+    });
+  }, []);
+
   useEffect(() => {
-    axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
-      const ufInitials = response.data.map(uf => uf.sigla);
-      setUfs(ufInitials);
-    })
+    axios
+      .get<IBGEUFResponse[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
+      )
+      .then((response) => {
+        const ufInitials = response.data.map((uf) => uf.sigla);
+        setUfs(ufInitials);
+      });
   }, []);
 
   useEffect(() => {
@@ -58,17 +68,21 @@ const RegisterPet = () => {
       return;
     }
 
-    axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios
-    `).then(response => {
-      const cityName = response.data.map(city => city.nome);
-      setCities(cityName);
-    })
+    axios
+      .get<IBGECityResponse[]>(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios
+    `,
+      )
+      .then((response) => {
+        const cityName = response.data.map((city) => city.nome);
+        setCities(cityName);
+      });
   }, [selectedUf]);
 
   function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
     const uf = event.target.value;
     setSelectedUf(uf);
-  };
+  }
 
   function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
     const city = event.target.value;
@@ -76,10 +90,7 @@ const RegisterPet = () => {
   }
 
   function handleMapClick(event: LeafletMouseEvent) {
-    setSelectedPosition([
-      event.latlng.lat,
-      event.latlng.lng,
-    ]);
+    setSelectedPosition([event.latlng.lat, event.latlng.lng]);
   }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -110,7 +121,7 @@ const RegisterPet = () => {
     data.append('city', city);
     data.append('latitude', String(latitude));
     data.append('longitude', String(longitude));
-    
+
     if (selectedFile) {
       data.append('photo', selectedFile);
     }
@@ -140,10 +151,8 @@ const RegisterPet = () => {
 
         <fieldset>
           <div className="field">
-            <label htmlFor="name">
-              Nome ( psiu, batisa ele ai )
-            </label>
-            <input 
+            <label htmlFor="name">Nome ( psiu, batisa ele ai )</label>
+            <input
               type="text"
               name="name"
               id="name"
@@ -155,31 +164,35 @@ const RegisterPet = () => {
           <div className="field-group">
             <div className="field">
               <label htmlFor="size">Qual porte dele?</label>
-                <select
+              <select
                 name="size"
                 id="size"
                 value={size}
                 onChange={handleSizeChange}
-                > 
-                  <option value='0'>Selecione o porte</option>
-                  {sizes.map(size => (
-                    <option key={size} value={size}>{size}</option>
-                  ))}
-                </select>
+              >
+                <option value="0">Selecione o porte</option>
+                {sizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="field">
               <label htmlFor="gender">Qual o sexo?</label>
-                <select
+              <select
                 name="gender"
                 id="gender"
                 value={gender}
                 onChange={handleGenderChange}
-                > 
-                  <option value='0'>Selecione o sexo</option>
-                  {genders.map(gender => (
-                    <option key={gender} value={gender}>{gender}</option>
-                  ))}
-                </select>
+              >
+                <option value="0">Selecione o sexo</option>
+                {genders.map((gender) => (
+                  <option key={gender} value={gender}>
+                    {gender}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </fieldset>
@@ -189,60 +202,54 @@ const RegisterPet = () => {
             <h2>Endereço</h2>
           </legend>
           <div className="field-group">
-              <div className="field">
-                <label htmlFor="uf">Estado (UF)</label>
-                <select 
-                  name="uf"
-                  id="uf"
-                  value={selectedUf}
-                  onChange={handleSelectUf}
-                  >
-                  <option value="0">Selecione a sigla do seu Estado</option>
-                  {ufs.map(uf => (
-                    <option
-                    key={uf}
-                    value={uf}>
+            <div className="field">
+              <label htmlFor="uf">Estado (UF)</label>
+              <select
+                name="uf"
+                id="uf"
+                value={selectedUf}
+                onChange={handleSelectUf}
+              >
+                <option value="0">Selecione a sigla do seu Estado</option>
+                {ufs.map((uf) => (
+                  <option key={uf} value={uf}>
                     {uf}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="field">
-                <label htmlFor="city">Cidade</label>
-                <select
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <label htmlFor="city">Cidade</label>
+              <select
                 name="city"
                 id="city"
                 value={selectedCity}
                 onChange={handleSelectCity}
-                >
+              >
                 <option value="0">Selecione a sua Cidade</option>
-                  {cities.map(city => (
-                    <option
-                    key={city}
-                    value={city}>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
                     {city}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  </option>
+                ))}
+              </select>
             </div>
+          </div>
 
-            <span>Selecione a região no mapa</span>
+          <span>Selecione a região no mapa</span>
           <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
             <TileLayer
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={selectedPosition}/>
+            <Marker position={selectedPosition} />
           </Map>
         </fieldset>
 
-        <button type="submit">
-          Cadastrar Pet
-        </button>
+        <button type="submit">Cadastrar Pet</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default RegisterPet;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { IoIosHeart } from 'react-icons/io';
-import { FaDog } from 'react-icons/fa'
+import { FaDog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
 
 import logo from '../../assets/logo.png';
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div id="page-home">
       <div className="content">
@@ -17,7 +17,9 @@ const Home = () => {
 
         <main>
           <h1>Você quer adotar ou cadastrar um novo Pet?</h1>
-          <p>Nós ajudamos a dar um novo lar <br/> para os caramelos!</p>
+          <p>
+            Nós ajudamos a dar um novo lar <br /> para os caramelos!
+          </p>
 
           <Link to="/adopt-pet" id="button-adoption">
             <span>
@@ -35,7 +37,7 @@ const Home = () => {
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;
