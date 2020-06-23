@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
-import { FaDog } from 'react-icons/fa'
+import { FaDog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import api from '../../services/api';
@@ -25,7 +25,7 @@ interface PetsArray {
   photo_url: string;
 }
 
-const AdoptPet = () => {
+const AdoptPet: React.FC = () => {
   const [pets, setPets] = useState<PetsArray[]>([]);
   const [ufs, setUfs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
@@ -34,10 +34,14 @@ const AdoptPet = () => {
   const [selectedCity, setSelectedCity] = useState('0');
 
   useEffect(() => {
-    axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
-      const ufInitials = response.data.map(uf => uf.sigla);
-      setUfs(ufInitials);
-    })
+    axios
+      .get<IBGEUFResponse[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
+      )
+      .then((response) => {
+        const ufInitials = response.data.map((uf) => uf.sigla);
+        setUfs(ufInitials);
+      });
   }, []);
 
   useEffect(() => {
@@ -45,17 +49,21 @@ const AdoptPet = () => {
       return;
     }
 
-    axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios
-    `).then(response => {
-      const cityName = response.data.map(city => city.nome);
-      setCities(cityName);
-    })
+    axios
+      .get<IBGECityResponse[]>(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios
+    `,
+      )
+      .then((response) => {
+        const cityName = response.data.map((city) => city.nome);
+        setCities(cityName);
+      });
   }, [selectedUf]);
 
   function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
     const uf = event.target.value;
     setSelectedUf(uf);
-  };
+  }
 
   function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
     const city = event.target.value;
@@ -63,7 +71,9 @@ const AdoptPet = () => {
   }
 
   async function handleSearchPets() {
-    const response = await api.get(`pets?city=${selectedCity}&uf=${selectedUf}`);
+    const response = await api.get(
+      `pets?city=${selectedCity}&uf=${selectedUf}`,
+    );
     setPets(response.data);
   }
 
@@ -71,83 +81,79 @@ const AdoptPet = () => {
     <div id="page-adopt-pet">
       <header>
         <Link to="/">
-            <FiArrowLeft />
-            Voltar
+          <FiArrowLeft />
+          Voltar
         </Link>
 
-          <img src={logo} alt="adopet" />
+        <img src={logo} alt="adopet" />
       </header>
       <form>
-      <fieldset>
+        <fieldset>
           <legend>
             <h2>De onde você é?</h2>
           </legend>
           <div className="field-group">
-              <div className="field">
-                <label htmlFor="uf">Estado</label>
-                <select 
-                  className="uf"
-                  name="uf"
-                  id="uf"
-                  value={selectedUf}
-                  onChange={handleSelectUf}
-                  >
-                  <option value="0">UF</option>
-                  {ufs.map(uf => (
-                    <option
-                    key={uf}
-                    value={uf}>
+            <div className="field">
+              <label htmlFor="uf">Estado</label>
+              <select
+                className="uf"
+                name="uf"
+                id="uf"
+                value={selectedUf}
+                onChange={handleSelectUf}
+              >
+                <option value="0">UF</option>
+                {ufs.map((uf) => (
+                  <option key={uf} value={uf}>
                     {uf}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="field">
-                <label htmlFor="city">Cidade</label>
-                <select
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <label htmlFor="city">Cidade</label>
+              <select
                 className="city"
                 name="city"
                 id="city"
                 value={selectedCity}
                 onChange={handleSelectCity}
-                >
+              >
                 <option value="0">Selecione a sua Cidade</option>
-                  {cities.map(city => (
-                    <option
-                    key={city}
-                    value={city}>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
                     {city}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <button type="button" onClick={handleSearchPets}>
-                <span>
-                  <FaDog size={18}/>
-                </span>
-                Procurar Pets</button>
+                  </option>
+                ))}
+              </select>
             </div>
+            <button type="button" onClick={handleSearchPets}>
+              <span>
+                <FaDog size={18} />
+              </span>
+              Procurar Pets
+            </button>
+          </div>
         </fieldset>
       </form>
-      
 
-    <ul className="pet-ul">
-      {
-        pets.map(pet => (
+      <ul className="pet-ul">
+        {pets.map((pet) => (
           <Link to={`/pets/${pet.id}`}>
             <li key={pet.id}>
-            <div className="pet-card">
-              <img src={pet.photo_url} alt="adopet" />
-              <h4><b>{pet.name}</b></h4>
-              <p>{`${pet.gender} de porte ${pet.size}`}</p>
-            </div>
-          </li>
+              <div className="pet-card">
+                <img src={pet.photo_url} alt="adopet" />
+                <h4>
+                  <b>{pet.name}</b>
+                </h4>
+                <p>{`${pet.gender} de porte ${pet.size}`}</p>
+              </div>
+            </li>
           </Link>
-        ))
-      }
-    </ul>
+        ))}
+      </ul>
     </div>
-  )
-}
+  );
+};
 
 export default AdoptPet;
