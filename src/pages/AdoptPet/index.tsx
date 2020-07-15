@@ -22,7 +22,7 @@ interface PetsArray {
   name: string;
   size: string;
   gender: string;
-  photo_url: string;
+  photoUrl: string;
 }
 
 const AdoptPet: React.FC = () => {
@@ -142,7 +142,7 @@ const AdoptPet: React.FC = () => {
           <Link to={`/pets/${pet.id}`}>
             <li key={pet.id}>
               <div className="pet-card">
-                <img src={pet.photo_url} alt="adopet" />
+                <img src={pet.photoUrl} alt="adopet" />
                 <h4>
                   <b>{pet.name}</b>
                 </h4>

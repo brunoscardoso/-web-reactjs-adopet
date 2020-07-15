@@ -3,7 +3,12 @@ import { RouteComponentProps, withRouter, useHistory } from 'react-router';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
-import pt, { format, parseISO } from 'date-fns/locale/pt';
+
+// eslint-disable-next-line import/no-duplicates
+import pt from 'date-fns/locale/pt';
+
+// eslint-disable-next-line import/no-duplicates
+import { parseISO, format } from 'date-fns';
 
 import api from '../../services/api';
 
@@ -16,9 +21,9 @@ interface PropsId {
 
 interface PetObject {
   id: number;
-  created_at: string;
+  createdAt: string;
   name: string;
-  photo_url: string;
+  photoUrl: string;
   size: string;
   gender: string;
   latitude: number;
@@ -33,9 +38,9 @@ const DetailsPet: React.FC<DetailProps> = ({ match }) => {
   const [link, setLink] = useState('');
   const [petDetails, setPetDetails] = useState<PetObject>({
     id: 0,
-    created_at: '',
+    createdAt: '',
     name: '',
-    photo_url: '',
+    photoUrl: '',
     size: '',
     gender: '',
     latitude: 0,
@@ -47,8 +52,8 @@ const DetailsPet: React.FC<DetailProps> = ({ match }) => {
 
   useEffect(() => {
     api.get(`pets/${match.params.id}`).then((response) => {
-      const { created_at } = response.data[0];
-      const dateParsedISO = parseISO(created_at);
+      const { createdAt } = response.data[0];
+      const dateParsedISO = parseISO(createdAt);
       const dateFormated = () =>
         format(dateParsedISO, "d 'de' MMMM 'por volta das' H:m", {
           locale: pt,
@@ -85,7 +90,7 @@ const DetailsPet: React.FC<DetailProps> = ({ match }) => {
             <h2>{`Uau!!! quer dizer...`}</h2>
             <h3>{`Meu nome é ${petDetails.name}, estou a procura de uma familía!`}</h3>{' '}
             <div>
-              <img src={petDetails.photo_url} alt="adopet" />
+              <img src={petDetails.photoUrl} alt="adopet" />
               <Map
                 center={[petDetails.latitude, petDetails.longitude]}
                 zoom={25}

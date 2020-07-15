@@ -1,42 +1,53 @@
 import React from 'react';
-import { IoIosHeart } from 'react-icons/io';
-import { FaDog } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 
-import './styles.css';
+import {
+  Container,
+  ContentContainer,
+  Header,
+  MainContainer,
+  Logo,
+  TitleText,
+  DescriptionText,
+  AdoptButton,
+  RegisterButton,
+  IconContainer,
+  HeartIcon,
+  DogIcon,
+  TextButon,
+} from './styles';
 
 import logo from '../../assets/logo.png';
 
 const Home: React.FC = () => {
   return (
-    <div id="page-home">
-      <div className="content">
-        <header>
-          <img src={logo} alt="AdoPet" />
-        </header>
+    <Container id="page-home">
+      <ContentContainer className="content">
+        <Header>
+          <Logo src={logo} alt="AdoPet" />
+        </Header>
 
-        <main>
-          <h1>Você quer adotar ou cadastrar um novo Pet?</h1>
-          <p>
+        <MainContainer>
+          <TitleText>Você quer adotar ou cadastrar um novo Pet?</TitleText>
+          <DescriptionText>
             Nós ajudamos a dar um novo lar <br /> para os caramelos!
-          </p>
+          </DescriptionText>
 
-          <Link to="/adopt-pet" id="button-adoption">
-            <span>
-              <IoIosHeart />
-            </span>
-            <strong>Adotar</strong>
-          </Link>
+          <AdoptButton to="/adopt-pet">
+            <IconContainer>
+              <HeartIcon />
+            </IconContainer>
+            <TextButon>Adotar</TextButon>
+          </AdoptButton>
 
-          <Link to="/register-pet">
-            <span>
-              <FaDog />
-            </span>
-            <strong>Cadastrar</strong>
-          </Link>
-        </main>
-      </div>
-    </div>
+          <RegisterButton to="/register-pet">
+            <IconContainer>
+              <DogIcon />
+            </IconContainer>
+            <TextButon>Cadastrar</TextButon>
+          </RegisterButton>
+        </MainContainer>
+      </ContentContainer>
+    </Container>
   );
 };
 
