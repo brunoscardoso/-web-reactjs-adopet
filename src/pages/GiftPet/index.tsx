@@ -17,8 +17,8 @@ interface PropsId {
 interface PetObject {
   id: number;
   name: string;
-  photo_url: string;
-  gifted_code: string;
+  photoUrl: string;
+  giftedCode: string;
 }
 
 type DetailProps = RouteComponentProps<PropsId>;
@@ -29,8 +29,8 @@ const GiftPet: React.FC<DetailProps> = ({ match }) => {
   const [petDetails, setPetDetails] = useState<PetObject>({
     id: 0,
     name: '',
-    photo_url: '',
-    gifted_code: '',
+    photoUrl: '',
+    giftedCode: '',
   });
 
   useEffect(() => {

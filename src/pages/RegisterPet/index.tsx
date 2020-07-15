@@ -1,6 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 import axios from 'axios';
@@ -9,7 +8,27 @@ import api from '../../services/api';
 import Dropzone from '../../components/Dropzone';
 
 import logo from '../../assets/logo.png';
-import './styles.css';
+
+import {
+  Container,
+  Header,
+  Logo,
+  BackIcon,
+  BackText,
+  FormContainer,
+  Title,
+  Fields,
+  InputContainer,
+  InputLabel,
+  Input,
+  FieldsGroup,
+  Dropdown,
+  Legend,
+  SubTitle,
+  Option,
+  Span,
+  SubmitButton,
+} from './styles';
 
 interface IBGEUFResponse {
   sigla: string;
@@ -79,33 +98,33 @@ const RegisterPet: React.FC = () => {
       });
   }, [selectedUf]);
 
-  function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
+  const handleSelectUf = (event: ChangeEvent<HTMLSelectElement>): void => {
     const uf = event.target.value;
     setSelectedUf(uf);
-  }
+  };
 
-  function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
+  const handleSelectCity = (event: ChangeEvent<HTMLSelectElement>): void => {
     const city = event.target.value;
     setSelectedCity(city);
-  }
+  };
 
-  function handleMapClick(event: LeafletMouseEvent) {
+  const handleMapClick = (event: LeafletMouseEvent): void => {
     setSelectedPosition([event.latlng.lat, event.latlng.lng]);
-  }
+  };
 
-  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setName(event.target.value);
-  }
+  };
 
-  function handleSizeChange(event: ChangeEvent<HTMLSelectElement>) {
+  const handleSizeChange = (event: ChangeEvent<HTMLSelectElement>): void => {
     setSize(event.target.value);
-  }
+  };
 
-  function handleGenderChange(event: ChangeEvent<HTMLSelectElement>) {
+  const handleGenderChange = (event: ChangeEvent<HTMLSelectElement>): void => {
     setGender(event.target.value);
-  }
+  };
 
-  async function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent): Promise<void> {
     event.preventDefault();
 
     const uf = selectedUf;
@@ -134,109 +153,109 @@ const RegisterPet: React.FC = () => {
   }
 
   return (
-    <div id="page-register-pet">
-      <header>
-        <Link to="/">
-          <FiArrowLeft />
+    <Container>
+      <Header>
+        <BackText to="/">
+          <BackIcon />
           Voltar
-        </Link>
+        </BackText>
 
-        <img src={logo} alt="adopet" />
-      </header>
+        <Logo src={logo} alt="adopet" />
+      </Header>
 
-      <form onSubmit={handleSubmit}>
-        <h1>Cadastro do Pet</h1>
+      <FormContainer onSubmit={handleSubmit}>
+        <Title>Cadastro do Pet</Title>
 
         <Dropzone onFileUploaded={setSelectedFile} />
 
-        <fieldset>
-          <div className="field">
-            <label htmlFor="name">Nome ( psiu, batisa ele ai )</label>
-            <input
+        <Fields>
+          <InputContainer>
+            <InputLabel htmlFor="name">Nome ( psiu, batisa ele ai )</InputLabel>
+            <Input
               type="text"
               name="name"
               id="name"
               value={name}
               onChange={handleInputChange}
             />
-          </div>
+          </InputContainer>
 
-          <div className="field-group">
-            <div className="field">
-              <label htmlFor="size">Qual porte dele?</label>
-              <select
+          <FieldsGroup>
+            <InputContainer>
+              <InputLabel htmlFor="size">Qual porte dele?</InputLabel>
+              <Dropdown
                 name="size"
                 id="size"
                 value={size}
                 onChange={handleSizeChange}
               >
-                <option value="0">Selecione o porte</option>
-                {sizes.map((size) => (
-                  <option key={size} value={size}>
-                    {size}
-                  </option>
+                <Option value="0">Selecione o porte</Option>
+                {sizes.map((value) => (
+                  <Option key={value} value={value}>
+                    {value}
+                  </Option>
                 ))}
-              </select>
-            </div>
-            <div className="field">
-              <label htmlFor="gender">Qual o sexo?</label>
-              <select
+              </Dropdown>
+            </InputContainer>
+            <InputContainer>
+              <InputLabel htmlFor="gender">Qual o sexo?</InputLabel>
+              <Dropdown
                 name="gender"
                 id="gender"
                 value={gender}
                 onChange={handleGenderChange}
               >
-                <option value="0">Selecione o sexo</option>
-                {genders.map((gender) => (
-                  <option key={gender} value={gender}>
-                    {gender}
-                  </option>
+                <Option value="0">Selecione o sexo</Option>
+                {genders.map((value) => (
+                  <Option key={value} value={value}>
+                    {value}
+                  </Option>
                 ))}
-              </select>
-            </div>
-          </div>
-        </fieldset>
+              </Dropdown>
+            </InputContainer>
+          </FieldsGroup>
+        </Fields>
 
-        <fieldset>
-          <legend>
-            <h2>Endereço</h2>
-          </legend>
-          <div className="field-group">
-            <div className="field">
-              <label htmlFor="uf">Estado (UF)</label>
-              <select
+        <Fields>
+          <Legend>
+            <SubTitle>Endereço</SubTitle>
+          </Legend>
+          <FieldsGroup>
+            <InputContainer>
+              <InputLabel htmlFor="uf">Estado (UF)</InputLabel>
+              <Dropdown
                 name="uf"
                 id="uf"
                 value={selectedUf}
                 onChange={handleSelectUf}
               >
-                <option value="0">Selecione a sigla do seu Estado</option>
+                <Option value="0">Selecione a sigla do seu Estado</Option>
                 {ufs.map((uf) => (
-                  <option key={uf} value={uf}>
+                  <Option key={uf} value={uf}>
                     {uf}
-                  </option>
+                  </Option>
                 ))}
-              </select>
-            </div>
-            <div className="field">
-              <label htmlFor="city">Cidade</label>
-              <select
+              </Dropdown>
+            </InputContainer>
+            <InputContainer>
+              <InputLabel htmlFor="city">Cidade</InputLabel>
+              <Dropdown
                 name="city"
                 id="city"
                 value={selectedCity}
                 onChange={handleSelectCity}
               >
-                <option value="0">Selecione a sua Cidade</option>
+                <Option value="0">Selecione a sua Cidade</Option>
                 {cities.map((city) => (
-                  <option key={city} value={city}>
+                  <Option key={city} value={city}>
                     {city}
-                  </option>
+                  </Option>
                 ))}
-              </select>
-            </div>
-          </div>
+              </Dropdown>
+            </InputContainer>
+          </FieldsGroup>
 
-          <span>Selecione a região no mapa</span>
+          <Span>Selecione a região no mapa</Span>
           <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
             <TileLayer
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -244,11 +263,11 @@ const RegisterPet: React.FC = () => {
             />
             <Marker position={selectedPosition} />
           </Map>
-        </fieldset>
+        </Fields>
 
-        <button type="submit">Cadastrar Pet</button>
-      </form>
-    </div>
+        <SubmitButton type="submit">Cadastrar Pet</SubmitButton>
+      </FormContainer>
+    </Container>
   );
 };
 
