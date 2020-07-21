@@ -170,25 +170,14 @@ const RegisterPet: React.FC = () => {
 
         <Fields>
           <InputContainer>
-            <InputLabel htmlFor="name">Nome ( psiu, batisa ele ai )</InputLabel>
-            <Input
-              type="text"
-              name="name"
-              id="name"
-              value={name}
-              onChange={handleInputChange}
-            />
+            <InputLabel>Nome ( psiu, batisa ele ai )</InputLabel>
+            <Input value={name} onChange={handleInputChange} />
           </InputContainer>
 
           <FieldGroup>
             <InputContainer>
-              <InputLabel htmlFor="size">Qual porte dele?</InputLabel>
-              <Dropdown
-                name="size"
-                id="size"
-                value={size}
-                onChange={handleSizeChange}
-              >
+              <InputLabel>Qual porte dele?</InputLabel>
+              <Dropdown value={size} onChange={handleSizeChange}>
                 <Option value="0">Selecione o porte</Option>
                 {sizes.map((value) => (
                   <Option key={value} value={value}>
@@ -198,13 +187,8 @@ const RegisterPet: React.FC = () => {
               </Dropdown>
             </InputContainer>
             <InputContainer>
-              <InputLabel htmlFor="gender">Qual o sexo?</InputLabel>
-              <Dropdown
-                name="gender"
-                id="gender"
-                value={gender}
-                onChange={handleGenderChange}
-              >
+              <InputLabel>Qual o sexo?</InputLabel>
+              <Dropdown value={gender} onChange={handleGenderChange}>
                 <Option value="0">Selecione o sexo</Option>
                 {genders.map((value) => (
                   <Option key={value} value={value}>
@@ -222,13 +206,8 @@ const RegisterPet: React.FC = () => {
           </Legend>
           <FieldGroup>
             <InputContainer>
-              <InputLabel htmlFor="uf">Estado (UF)</InputLabel>
-              <Dropdown
-                name="uf"
-                id="uf"
-                value={selectedUf}
-                onChange={handleSelectUf}
-              >
+              <InputLabel>Estado (UF)</InputLabel>
+              <Dropdown value={selectedUf} onChange={handleSelectUf}>
                 <Option value="0">Selecione a sigla do seu Estado</Option>
                 {ufs.map((uf) => (
                   <Option key={uf} value={uf}>
@@ -238,13 +217,8 @@ const RegisterPet: React.FC = () => {
               </Dropdown>
             </InputContainer>
             <InputContainer>
-              <InputLabel htmlFor="city">Cidade</InputLabel>
-              <Dropdown
-                name="city"
-                id="city"
-                value={selectedCity}
-                onChange={handleSelectCity}
-              >
+              <InputLabel>Cidade</InputLabel>
+              <Dropdown value={selectedCity} onChange={handleSelectCity}>
                 <Option value="0">Selecione a sua Cidade</Option>
                 {cities.map((city) => (
                   <Option key={city} value={city}>
