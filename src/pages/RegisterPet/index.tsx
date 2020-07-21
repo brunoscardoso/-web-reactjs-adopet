@@ -21,7 +21,7 @@ import {
   InputContainer,
   InputLabel,
   Input,
-  FieldsGroup,
+  FieldGroup,
   Dropdown,
   Legend,
   SubTitle,
@@ -180,7 +180,7 @@ const RegisterPet: React.FC = () => {
             />
           </InputContainer>
 
-          <FieldsGroup>
+          <FieldGroup>
             <InputContainer>
               <InputLabel htmlFor="size">Qual porte dele?</InputLabel>
               <Dropdown
@@ -213,14 +213,14 @@ const RegisterPet: React.FC = () => {
                 ))}
               </Dropdown>
             </InputContainer>
-          </FieldsGroup>
+          </FieldGroup>
         </Fields>
 
         <Fields>
           <Legend>
             <SubTitle>Endereço</SubTitle>
           </Legend>
-          <FieldsGroup>
+          <FieldGroup>
             <InputContainer>
               <InputLabel htmlFor="uf">Estado (UF)</InputLabel>
               <Dropdown
@@ -253,7 +253,7 @@ const RegisterPet: React.FC = () => {
                 ))}
               </Dropdown>
             </InputContainer>
-          </FieldsGroup>
+          </FieldGroup>
 
           <Span>Selecione a região no mapa</Span>
           <Map center={initialPosition} zoom={15} onClick={handleMapClick}>

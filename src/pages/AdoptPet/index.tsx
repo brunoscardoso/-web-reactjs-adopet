@@ -1,13 +1,34 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { FiArrowLeft } from 'react-icons/fi';
-import { FaDog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 import api from '../../services/api';
 
 import logo from '../../assets/logo.png';
 
-import './styles.css';
+import {
+  Container,
+  Header,
+  BackText,
+  BackIcon,
+  Logo,
+  FormContainer,
+  Fields,
+  Title,
+  FieldGroup,
+  UFDropdown,
+  Field,
+  Option,
+  CityDropdown,
+  LabelText,
+  SearchButton,
+  DogIcon,
+  List,
+  TextButton,
+  ListUL,
+} from './styles';
+
+import CardPet from '../../components/CardPet';
 
 interface IBGEUFResponse {
   sigla: string;
@@ -60,17 +81,17 @@ const AdoptPet: React.FC = () => {
       });
   }, [selectedUf]);
 
-  function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
+  const handleSelectUf = (event: ChangeEvent<HTMLSelectElement>): void => {
     const uf = event.target.value;
     setSelectedUf(uf);
-  }
+  };
 
-  function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
+  const handleSelectCity = (event: ChangeEvent<HTMLSelectElement>): void => {
     const city = event.target.value;
     setSelectedCity(city);
-  }
+  };
 
-  async function handleSearchPets() {
+  async function handleSearchPets(): Promise<void> {
     const response = await api.get(
       `pets?city=${selectedCity}&uf=${selectedUf}`,
     );
@@ -78,81 +99,62 @@ const AdoptPet: React.FC = () => {
   }
 
   return (
-    <div id="page-adopt-pet">
-      <header>
-        <Link to="/">
-          <FiArrowLeft />
+    <Container id="page-adopt-pet">
+      <Header>
+        <BackText to="/">
+          <BackIcon />
           Voltar
-        </Link>
-
-        <img src={logo} alt="adopet" />
-      </header>
-      <form>
-        <fieldset>
-          <legend>
-            <h2>De onde você é?</h2>
-          </legend>
-          <div className="field-group">
-            <div className="field">
-              <label htmlFor="uf">Estado</label>
-              <select
-                className="uf"
-                name="uf"
-                id="uf"
-                value={selectedUf}
-                onChange={handleSelectUf}
-              >
-                <option value="0">UF</option>
+        </BackText>
+        <Logo src={logo} alt="adopet" />
+      </Header>
+      <FormContainer>
+        <Fields>
+          <Title>De onde você é?</Title>
+          <FieldGroup>
+            <Field>
+              <LabelText>Estado</LabelText>
+              <UFDropdown value={selectedUf} onChange={handleSelectUf}>
+                <Option value="0">UF</Option>
                 {ufs.map((uf) => (
-                  <option key={uf} value={uf}>
+                  <Option key={uf} value={uf}>
                     {uf}
-                  </option>
+                  </Option>
                 ))}
-              </select>
-            </div>
-            <div className="field">
-              <label htmlFor="city">Cidade</label>
-              <select
-                className="city"
-                name="city"
-                id="city"
-                value={selectedCity}
-                onChange={handleSelectCity}
-              >
-                <option value="0">Selecione a sua Cidade</option>
+              </UFDropdown>
+            </Field>
+            <Field>
+              <LabelText>Cidade</LabelText>
+              <CityDropdown value={selectedCity} onChange={handleSelectCity}>
+                <Option value="0">Selecione a sua Cidade</Option>
                 {cities.map((city) => (
-                  <option key={city} value={city}>
+                  <Option key={city} value={city}>
                     {city}
-                  </option>
+                  </Option>
                 ))}
-              </select>
-            </div>
-            <button type="button" onClick={handleSearchPets}>
-              <span>
-                <FaDog size={18} />
-              </span>
-              Procurar Pets
-            </button>
-          </div>
-        </fieldset>
-      </form>
+              </CityDropdown>
+            </Field>
+            <SearchButton type="button" onClick={handleSearchPets}>
+              <DogIcon />
+              <TextButton>Procurar Pets</TextButton>
+            </SearchButton>
+          </FieldGroup>
+        </Fields>
+      </FormContainer>
 
-      <ul className="pet-ul">
+      <ListUL>
         {pets.map((pet) => (
-          <Link to={`/pets/${pet.id}`}>
-            <li key={pet.id}>
-              <div className="pet-card">
-                <img src={pet.photoUrl} alt="adopet" />
-                <h4>
-                  <b>{pet.name}</b>
-                </h4>
-                <p>{`${pet.gender} de porte ${pet.size}`}</p>
-              </div>
-            </li>
+          <Link to={`/pets/${pet.id}`} key={pet.id}>
+            <List>
+              <CardPet
+                photoUrl={pet.photoUrl}
+                name={pet.name}
+                gender={pet.gender}
+              />
+            </List>
           </Link>
         ))}
-      </ul>
-    </div>
+      </ListUL>
+    </Container>
   );
 };
 
