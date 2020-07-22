@@ -92,10 +92,6 @@ const DetailsPet: React.FC<DetailProps> = ({ match }) => {
     history.push(`/thankyou/${petDetails.id}`);
   }
 
-  function handleBack(): void {
-    history.push('/');
-  }
-
   return (
     <>
       {petDetails.id > 0 ? (

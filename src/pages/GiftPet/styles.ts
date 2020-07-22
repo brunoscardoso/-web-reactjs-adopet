@@ -1,31 +1,36 @@
-#page-gift-pet {
+import styled from 'styled-components';
+import { FiArrowLeft } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+
+export const Container = styled.div`
   width: 100%;
   max-width: 730px;
   margin: 0 auto;
-}
+`;
 
-#page-gift-pet header {
+export const Header = styled.header`
   margin-top: 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+`;
 
-#page-gift-pet header a {
+export const BackIcon = styled(FiArrowLeft)`
+  margin-right: 16px;
+  color: var(--primary-color);
+`;
+
+export const BackText = styled(Link)`
   color: var(--title-color);
   font-weight: bold;
   text-decoration: none;
-
   display: flex;
   align-items: center;
-}
+`;
 
-#page-gift-pet header a svg {
-  margin-right: 16px;
-  color: var(--primary-color);
-}
+export const Logo = styled.img``;
 
-#page-gift-pet .page-details {
+export const ContainerDetails = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,11 +38,11 @@
   margin: 32px auto;
   padding: 16px;
   max-width: 730px;
-  background: #FFF;
+  background: #fff;
   border-radius: 8px;
-}
+`;
 
-#page-gift-pet .page-details .voucher {
+export const ContainerVoucher = styled.div`
   display: flex;
   height: 200px;
   width: 500px;
@@ -49,9 +54,9 @@
   border-style: solid;
   border-color: #000;
   border-radius: 8px;
-}
+`;
 
-#page-gift-pet .page-details .voucher .sidebar {
+export const VoucherSidebar = styled.div`
   display: flex;
   width: 80px;
   height: 200px;
@@ -61,39 +66,39 @@
   border-top: solid;
   border-bottom: solid;
   border-color: #000;
-  background: #F0F0F5;
-}
+  background: #f0f0f5;
+`;
 
-#page-gift-pet .page-details .voucher .details {
+export const VoucherDetails = styled.div`
   display: flex;
   margin: 0 24px 0 24px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 8px 0 0 8px;
-}
+`;
 
-#page-gift-pet .page-details .voucher .details h1 {
-  color: #000;
-  font-size: 40px;
-}
-
-#page-gift-pet .page-details h1 {
+export const Title = styled.h1`
   margin: 24px 0 16px 0;
   font-size: 50px;
-}
+`;
 
-#page-gift-pet .page-details h3 {
+export const SubTitle = styled.h3`
   text-align: center;
   color: #000;
-}
+`;
 
-#page-gift-pet .page-details span {
+export const VoucherTitle = styled.h1`
+  color: #000;
+  font-size: 40px;
+`;
+
+export const DetailsText = styled.span`
   text-align: center;
   margin-bottom: 24px;
-}
+`;
 
-#page-gift-pet .voucher img {
+export const VoucherLogo = styled.img`
   width: 70px;
   height: 170px;
-}
+`;

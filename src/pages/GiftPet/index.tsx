@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { FiArrowLeft } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import api from '../../services/api';
 
 import logo from '../../assets/logo.png';
 import homeopatas from '../../assets/voucher-homeopatas.png';
 
-import './styles.css';
+import {
+  Container,
+  Header,
+  BackIcon,
+  BackText,
+  Logo,
+  Title,
+  SubTitle,
+  ContainerDetails,
+  ContainerVoucher,
+  VoucherSidebar,
+  VoucherDetails,
+  VoucherTitle,
+  VoucherLogo,
+  DetailsText,
+} from './styles';
 
 interface PropsId {
   id: string;
@@ -51,45 +64,45 @@ const GiftPet: React.FC<DetailProps> = ({ match }) => {
   }, [match.params.id]);
 
   return (
-    <div id="page-gift-pet">
-      <header>
-        <Link to="/">
-          <FiArrowLeft />
+    <Container id="page-gift-pet">
+      <Header>
+        <BackText to="/">
+          <BackIcon />
           Voltar
-        </Link>
+        </BackText>
 
-        <img src={logo} alt="adopet" />
-      </header>
+        <Logo src={logo} alt="adopet" />
+      </Header>
 
       {giftCheck ? (
-        <div className="page-details">
-          <h1>Parabéns!</h1>
-          <h3>{`Você ganhou a primeira consulta e um banho para(a) ${petDetails.name} de uma Clínica Veterinária que está apoiando a sua atitude!`}</h3>
-          <div className="voucher">
-            <div className="sidebar">
-              <img src={homeopatas} alt="adopet" />
-            </div>
-            <div className="details">
-              <h1>{petDetails.name}</h1>
-              <h1>{gift}</h1>
-            </div>
+        <ContainerDetails className="page-details">
+          <Title>Parabéns!</Title>
+          <SubTitle>{`Você ganhou a primeira consulta e um banho para(a) ${petDetails.name} de uma Clínica Veterinária que está apoiando a sua atitude!`}</SubTitle>
+          <ContainerVoucher className="voucher">
+            <VoucherSidebar className="sidebar">
+              <VoucherLogo src={homeopatas} alt="adopet" />
+            </VoucherSidebar>
+            <VoucherDetails className="details">
+              <VoucherTitle>{petDetails.name}</VoucherTitle>
+              <VoucherTitle>{gift}</VoucherTitle>
+            </VoucherDetails>
             <QRCode value={gift} />
-          </div>
-          <span>
+          </ContainerVoucher>
+          <DetailsText>
             Para receber essa consulta gratuíta você só precisa bater um print
             ou uma foto desse cupom e levar até a Clínica Veterinária Homeopatas
             em Navegantes - SC <br />
             <br /> Seria muito legal se você batesse uma foto com o seu novo
             amigo marcando @clinicavethomeopatas para incentivarmos outras
             pessoas!
-          </span>
-        </div>
+          </DetailsText>
+        </ContainerDetails>
       ) : (
-        <div className="page-details">
-          <h2>Esse pet foi adotado e já recebeu um cupom!</h2>
-        </div>
+        <Container className="page-details">
+          <SubTitle>Esse pet foi adotado e já recebeu um cupom!</SubTitle>
+        </Container>
       )}
-    </div>
+    </Container>
   );
 };
 
